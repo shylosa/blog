@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.id }}{% endblock %}
+
+{% block body %}
+    <h1>{{ post.headerPost}}</h1>
+
+        <span>{{ post.publicationAt | date('Y-m-d, h-i-s') }}</span><br>
+        <span>{{ post.textPost }}</span><br>
+
+{% endblock %}
