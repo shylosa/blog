@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавление нового поста{% endblock %}
+
+{% block body %}
+    <h1>Добавление нового поста</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+        <div class="form-group-row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Опубликовать</button>
+            </div>
+        </div>
+
+    {{ form_end(form) }}
+{% endblock %}

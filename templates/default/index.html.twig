@@ -3,6 +3,10 @@
 {% block title %}Форум{% endblock %}
 
 {% block body %}
+    <div class="col-sm-10 offset-sm-2">
+        <a href="{{ path('post_add') }}">Добавить новый пост</a>
+    </div>
+
     <h1>Список постов</h1>
 
 {% for post in posts%}
