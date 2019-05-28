@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/posts/{id}", name="post")
+     * @Route("/post/{id}", name="post")
      */
     public function post(Post $post)
     {
