@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", name="post")
+     * @Route("/post/{id}", name="post", requirements={"id"="\d+"})
      */
     public function post(Post $post)
     {

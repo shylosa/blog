@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
-use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use \DateTime;
 
 class PostController extends AbstractController
 {
@@ -23,7 +23,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $post->setPublicationAt(new \DateTime("now"));
+            $post->setPublicationAt(new DateTime("now"));
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -44,16 +44,24 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}/edit", name="post_edit")
+     * @Route("/post/{id}/edit", name="post_edit", requirements={"id"="\d+"})
      */
-    public function edit(PostRepository $postRepository)
+    public function edit(Post $post, EntityManagerInterface $entityManager)
     {
-        $post = $postRepository->find('id');
         $form = $this->createForm(PostType::class, $post);
 
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('post_edit_success');
+        }
+
         return $this->render('post/edit.html.twig', [
-            'form' => $form->createView(), 'post' => $post
+            'form' => $form->createView(),
+            'post' => $post
         ]);
+
     }
 
     /**
