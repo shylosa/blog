@@ -46,12 +46,14 @@ class PostController extends AbstractController
     /**
      * @Route("/post/{id}/edit", name="post_edit", requirements={"id"="\d+"})
      */
-    public function edit(Post $post, EntityManagerInterface $entityManager)
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
+            $entityManager->persist($post);
             $entityManager->flush();
 
             return $this->redirectToRoute('post_edit_success');
